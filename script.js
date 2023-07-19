@@ -75,10 +75,6 @@ const renderSinglePartyById = async (id) => {
     const rsvpsResponse = await fetch(`${RSVPS_API_URL}/party/${id}`);
     const rsvps = await rsvpsResponse.json();
 
-    // GET - get all gifts by party id - /api/workshop/parties/gifts/:partyId -BUGGY?
-    // const giftsResponse = await fetch(`${PARTIES_API_URL}/party/gifts/${id}`);
-    // const gifts = await giftsResponse.json();
-
     // create new HTML element to display party details
     const partyDetailsElement = document.createElement("div");
     partyDetailsElement.classList.add("party-details");
@@ -144,7 +140,6 @@ const renderParties = async (parties) => {
       detailsButton.addEventListener("click", (event) => {
         //Option 1 use event.target
         const partyId = event.target.dataset.id;
-        //console.log(partyId);
         renderSinglePartyById(partyId);
 
         //Option 2 use party.id
@@ -192,8 +187,8 @@ const renderNewPartyForm = () => {
 
 const submitHandler = async (event) => {
   event.preventDefault();
+  //get the form from the event
   const form = event.target;
-  //submit handler should create new Party
 
   //pull all bits of info from form
   const name = form.name.value;
@@ -210,14 +205,6 @@ const submitHandler = async (event) => {
     location,
     description,
   });
-  /**
-   * {
-   *   name: "Tyler's Party",
-   *   location: "Zoom",
-   *   ...
-   * }
-   */
-
 
   if(data){
     alert(`${data.name} was created with ID: ${data.id}`)
